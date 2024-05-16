@@ -1,0 +1,52 @@
+[gd_scene load_steps=10 format=3 uid="uid://c0pwdwayy1up7"]
+
+[ext_resource type="Script" path="res://level1.gd" id="1_8ytj8"]
+[ext_resource type="PackedScene" uid="uid://s446d2tmkl6o" path="res://castle.tscn" id="2_bd45j"]
+[ext_resource type="Script" path="res://scenes/player2.gd" id="3_j0jmx"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dkivg"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_356yg"]
+sky_material = SubResource("ProceduralSkyMaterial_dkivg")
+
+[sub_resource type="Environment" id="Environment_aeh5h"]
+background_mode = 2
+sky = SubResource("Sky_356yg")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_e8vrv"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_w8q37"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_lauwg"]
+
+[node name="level1" type="Node3D"]
+script = ExtResource("1_8ytj8")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_aeh5h")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 18.8717, 0)
+shadow_enabled = true
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.69637, 4.34581)
+script = ExtResource("3_j0jmx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.87648, 37.6631)
+shape = SubResource("CapsuleShape3D_e8vrv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D/CollisionShape3D"]
+mesh = SubResource("CapsuleMesh_w8q37")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0075804, 3.5983, 40.2713)
+
+[node name="castle" parent="." instance=ExtResource("2_bd45j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.75794, 0, 0, 0)
+mesh = SubResource("BoxMesh_lauwg")

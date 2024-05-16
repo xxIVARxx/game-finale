@@ -1,0 +1,69 @@
+[gd_scene load_steps=7 format=3 uid="uid://rffcyg0p1y3q"]
+
+[ext_resource type="Script" path="res://Player.gd" id="1_2v3wm"]
+[ext_resource type="PackedScene" uid="uid://dwvewifo8xnov" path="res://models/charachters/RedTeam_TwoHandSwordsMen_Unit.fbx" id="2_187gy"]
+[ext_resource type="PackedScene" uid="uid://cqi35p073015f" path="res://scenes/mini_map.tscn" id="3_tdpbm"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_67y6s"]
+height = 1.78015
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_hn37q"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("Camera3D:rotation")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_wyrou"]
+
+[node name="Player" type="CharacterBody3D" groups=["enemy"]]
+collision_layer = 3
+script = ExtResource("1_2v3wm")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.888329, -0.133571)
+shape = SubResource("CapsuleShape3D_67y6s")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.888329, -0.133571)
+shape = SubResource("CapsuleShape3D_67y6s")
+
+[node name="Root Scene" parent="." instance=ExtResource("2_187gy")]
+transform = Transform3D(-0.999955, 0, 0.0094943, 0, 1, 0, -0.0094943, 0, -0.999955, 0.0141267, 0.0705851, -0.0366192)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_hn37q")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.98533, 2.74457)
+
+[node name="hitbox" type="Area3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -446.73, -69.5575, -7.98501)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Camera3D/hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 446.826, 68.8268, 3.96569)
+shape = SubResource("CylinderShape3D_wyrou")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03122, 0)
+target_position = Vector3(0, 0, -3)
+collision_mask = 2
+
+[node name="map" type="CanvasLayer" parent="."]
+
+[node name="MiniMap" parent="map" instance=ExtResource("3_tdpbm")]
+offset_left = -224.0
+offset_top = 16.0
+offset_right = -24.0001
+offset_bottom = 216.0
+scale = Vector2(1.06833, 0.963089)
+target = NodePath("../..")
+camera_distance = 30.0
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
