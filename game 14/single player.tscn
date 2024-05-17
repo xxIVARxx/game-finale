@@ -58,5 +58,8 @@ mesh = SubResource("CapsuleMesh_33n1q")
 [node name="Camera3D" type="Camera3D" parent="test player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.559258, -0.625933)
 
+[node name="enemy2" parent="." instance=ExtResource("5_m5lfj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.3915, 7.05243, -10.0329)
+
 [node name="enemy" parent="." instance=ExtResource("5_m5lfj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.1957, 3.52621, -5.01645)

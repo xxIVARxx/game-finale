@@ -1,4 +1,5 @@
 extends CharacterBody3D
+@onready var camera = $Camera3D
 
 
 const SPEED = 10
@@ -7,9 +8,21 @@ const JUMP_VELOCITY = 4.5
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
+func _ready():
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	camera.current = true
+	
+func _unhandled_input(event):
+
+	
+	if event is InputEventMouseMotion:
+		rotate_y(-event.relative.x * .005)
+		camera.rotate_x(-event.relative.y * .005)
+		camera.rotation.x = clamp(camera.rotation.x, -PI/2, PI/2)
 
 func _physics_process(delta):
 	# Add the gravity.
+	
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 
