@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cy2pndnl85liv"]
+
+[ext_resource type="PackedScene" uid="uid://d1xx4bu3v53e" path="res://scenes/main menu/option_display_button.tscn" id="1_wwqqs"]
+[ext_resource type="Script" path="res://resolution_mode_button.gd" id="2_g2k0m"]
+
+[node name="Resolution_Mode_Button" instance=ExtResource("1_wwqqs")]
+script = ExtResource("2_g2k0m")
+
+[node name="HBoxContainer" parent="." index="0"]
+offset_top = 48.0
+offset_right = 844.0
+offset_bottom = 112.0
+
+[node name="Label" parent="HBoxContainer" index="0"]
+text = "  Resolution"

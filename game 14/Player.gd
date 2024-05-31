@@ -49,7 +49,7 @@ func _unhandled_input(event):
 
 	
 	
-	if Input.is_action_just_pressed("swoard") :
+	if Input.is_action_just_pressed("hit") :
 		if anim_player.current_animation != "RedTeam_swoardMen_Armature|Attack_TwoHandSwodsMen":
 			melee2.rpc()
 			hitx.rpc()
@@ -64,7 +64,7 @@ func _physics_process(delta):
 		velocity.y -= gravity * delta
 
 	# Handle Jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 
 	# Get the input direction and handle the movement/deceleration.
@@ -121,7 +121,7 @@ func melee():
 					print("not found")
 
 
-func _on_collision_shape_3d_child_entered_tree(node):
+func _on_collision_shape_3d_child_entered_tree():
 	print("detection")
 @rpc("any_peer","call_local")
 func melee2():
@@ -129,5 +129,4 @@ func melee2():
 		var hit_player = raycast.get_collider()
 		hit_player.receive_damage.rpc_id(hit_player.get_multiplayer_authority())
 
-#func _on_area_3d_body_entered(body):
-#	print("dettect")
+

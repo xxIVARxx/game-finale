@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://cg5g0xpmqry40"]
+
+[ext_resource type="PackedScene" uid="uid://dwvewifo8xnov" path="res://models/charachters/RedTeam_TwoHandSwordsMen_Unit.fbx" id="1_figaj"]
+[ext_resource type="Script" path="res://scripts/red_player.gd" id="2_figkv"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yqee3"]
+
+[node name="red player" type="CharacterBody3D" groups=["friend"]]
+script = ExtResource("2_figkv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.216963, 0.818148, 0)
+shape = SubResource("CapsuleShape3D_yqee3")
+
+[node name="Root Scene" parent="." instance=ExtResource("1_figaj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.283454, 0, 0.00215602)
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]

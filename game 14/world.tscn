@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://c8oqxmm2w2wvv"]
 
 [ext_resource type="Script" path="res://world.gd" id="1_6tkge"]
-[ext_resource type="PackedScene" path="res://environment.tscn" id="1_iktak"]
+[ext_resource type="PackedScene" uid="uid://de6jgao2564ps" path="res://environment.tscn" id="1_iktak"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_u5pdl"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)

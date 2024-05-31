@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://dd50sp20rcmki"]
+[gd_scene load_steps=16 format=3 uid="uid://djoe0h18dlv6q"]
 
-[ext_resource type="PackedScene" path="res://environment.tscn" id="1_4gnln"]
+[ext_resource type="PackedScene" uid="uid://de6jgao2564ps" path="res://environment.tscn" id="1_4gnln"]
 [ext_resource type="Script" path="res://single player.gd" id="1_sui0s"]
-[ext_resource type="PackedScene" uid="uid://dcv4px4x7xcb0" path="res://models/charachters/BlueTeam_TwoHandSwordsMen_Unit.fbx" id="2_0c1vk"]
 [ext_resource type="Script" path="res://test player.gd" id="4_rg5x0"]
-[ext_resource type="PackedScene" uid="uid://cyqjk3skb8uoi" path="res://enemy.tscn" id="5_m5lfj"]
+[ext_resource type="PackedScene" uid="uid://cg5g0xpmqry40" path="res://scenes/red_player.tscn" id="5_xnfyj"]
+[ext_resource type="PackedScene" uid="uid://bjyshnlhcahbc" path="res://scenes/blue_player.tscn" id="6_fe13m"]
+[ext_resource type="PackedScene" uid="uid://86ecx6ingof2" path="res://scenes/DOOR.tscn" id="6_weufl"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5bsi1"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -27,6 +28,12 @@ polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(5, 4, 3), PackedInt32Arr
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_33n1q"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_ymfq4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1abm3"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_pg0us"]
+
 [node name="Node" type="Node"]
 script = ExtResource("1_sui0s")
 
@@ -37,16 +44,13 @@ environment = SubResource("Environment_a30n3")
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 shadow_enabled = true
 
-[node name="P1" parent="." instance=ExtResource("2_0c1vk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.30457, 0, 1.8465)
-
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_kmy7u")
 
 [node name="Environment" parent="NavigationRegion3D" instance=ExtResource("1_4gnln")]
 
 [node name="test player" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.5057, 2.26121, 10.7054)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.1077, 2.11151, 10.9923)
 script = ExtResource("4_rg5x0")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="test player"]
@@ -55,11 +59,85 @@ shape = SubResource("CapsuleShape3D_yukpm")
 [node name="StaticBody3D" type="MeshInstance3D" parent="test player/CollisionShape3D"]
 mesh = SubResource("CapsuleMesh_33n1q")
 
-[node name="Camera3D" type="Camera3D" parent="test player"]
+[node name="Marker3D" type="Marker3D" parent="test player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.290047, -0.663317)
+
+[node name="Head" type="Node3D" parent="test player"]
+
+[node name="Camera3D" type="Camera3D" parent="test player/Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.559258, -0.625933)
 
-[node name="enemy2" parent="." instance=ExtResource("5_m5lfj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.3915, 7.05243, -10.0329)
+[node name="obj_picker" type="Node3D" parent="test player/Head/Camera3D"]
 
-[node name="enemy" parent="." instance=ExtResource("5_m5lfj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.1957, 3.52621, -5.01645)
+[node name="RayCast3D" type="RayCast3D" parent="test player/Head/Camera3D/obj_picker"]
+target_position = Vector3(0, 0, -3)
+
+[node name="Marker3D" type="Marker3D" parent="test player/Head/Camera3D/obj_picker"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.026, 0.017, -2.003)
+
+[node name="Generic6DOFJoint3D" type="Generic6DOFJoint3D" parent="test player/Head/Camera3D/obj_picker"]
+node_a = NodePath("../body3d")
+linear_limit_x/enabled = false
+linear_limit_y/enabled = false
+linear_limit_z/enabled = false
+
+[node name="body3d" type="StaticBody3D" parent="test player/Head/Camera3D/obj_picker"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="test player/Head/Camera3D/obj_picker/body3d"]
+shape = SubResource("BoxShape3D_ymfq4")
+disabled = true
+
+[node name="blue player2" parent="." instance=ExtResource("6_fe13m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.22221, 12.5763)
+
+[node name="blue player" parent="." instance=ExtResource("6_fe13m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.301268, 5.87741)
+
+[node name="red player" parent="." instance=ExtResource("5_xnfyj")]
+transform = Transform3D(0.105188, 0, 0.994452, 0, 1, 0, -0.994452, 0, 0.105188, -22.8831, 2.19306, 10.2072)
+
+[node name="Marker3D" type="Marker3D" parent="red player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.918221, 0)
+
+[node name="DOOR" parent="." instance=ExtResource("6_weufl")]
+
+[node name="CSGBox3D" type="RigidBody3D" parent="." groups=["INT"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.198, 2.82073, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGBox3D"]
+shape = SubResource("BoxShape3D_1abm3")
+
+[node name="StaticBody3D" type="MeshInstance3D" parent="CSGBox3D/CollisionShape3D"]
+mesh = SubResource("BoxMesh_pg0us")
+skeleton = NodePath("../..")
+
+[node name="CSGBox3D2" type="RigidBody3D" parent="." groups=["INT"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.198, 2.82073, -3.95349)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGBox3D2"]
+shape = SubResource("BoxShape3D_1abm3")
+
+[node name="StaticBody3D" type="MeshInstance3D" parent="CSGBox3D2/CollisionShape3D"]
+mesh = SubResource("BoxMesh_pg0us")
+skeleton = NodePath("../..")
+
+[node name="CSGBox3D3" type="RigidBody3D" parent="." groups=["INT"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.198, 2.82073, 3.90242)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGBox3D3"]
+shape = SubResource("BoxShape3D_1abm3")
+
+[node name="StaticBody3D" type="MeshInstance3D" parent="CSGBox3D3/CollisionShape3D"]
+mesh = SubResource("BoxMesh_pg0us")
+skeleton = NodePath("../..")
+
+[node name="CSGBox3D4" type="RigidBody3D" parent="." groups=["INT"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.8851, 2.82073, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGBox3D4"]
+shape = SubResource("BoxShape3D_1abm3")
+
+[node name="StaticBody3D" type="MeshInstance3D" parent="CSGBox3D4/CollisionShape3D"]
+mesh = SubResource("BoxMesh_pg0us")
+skeleton = NodePath("../..")

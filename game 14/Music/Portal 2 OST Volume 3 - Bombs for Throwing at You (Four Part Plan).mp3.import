@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://diem18kpkanau"
+path="res://.godot/imported/Portal 2 OST Volume 3 - Bombs for Throwing at You (Four Part Plan).mp3-fda94458336e6ed1de3bb8cbe37c974b.mp3str"
+
+[deps]
+
+source_file="res://Music/Portal 2 OST Volume 3 - Bombs for Throwing at You (Four Part Plan).mp3"
+dest_files=["res://.godot/imported/Portal 2 OST Volume 3 - Bombs for Throwing at You (Four Part Plan).mp3-fda94458336e6ed1de3bb8cbe37c974b.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

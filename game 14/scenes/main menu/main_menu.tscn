@@ -1,0 +1,190 @@
+[gd_scene load_steps=12 format=3 uid="uid://dw4qofje1xbcp"]
+
+[ext_resource type="Texture2D" uid="uid://cr7ukqwvgp011" path="res://models/textures/BACK.jpg" id="1_t5vlk"]
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_vmrod"]
+[ext_resource type="PackedScene" uid="uid://de6jgao2564ps" path="res://environment.tscn" id="3_p2ekf"]
+[ext_resource type="PackedScene" uid="uid://bojplgj7hp25v" path="res://scenes/main menu/options_menu.tscn" id="4_m1g76"]
+[ext_resource type="AudioStream" uid="uid://diem18kpkanau" path="res://Music/Portal 2 OST Volume 3 - Bombs for Throwing at You (Four Part Plan).mp3" id="5_5j3wt"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tymn6"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_32pcj"]
+sky_material = SubResource("ProceduralSkyMaterial_tymn6")
+
+[sub_resource type="Environment" id="Environment_3xxog"]
+background_mode = 2
+sky = SubResource("Sky_32pcj")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="SystemFont" id="SystemFont_77rso"]
+font_names = PackedStringArray("Impact")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x5cup"]
+bg_color = Color(1, 0.117647, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vyl1y"]
+bg_color = Color(0.00392157, 1, 0, 1)
+
+[node name="Main_Menu" type="Node"]
+script = ExtResource("1_vmrod")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_3xxog")
+
+[node name="Environment" parent="." instance=ExtResource("3_p2ekf")]
+
+[node name="main" type="CanvasLayer" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="main"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_t5vlk")
+
+[node name="MarginContainer" type="MarginContainer" parent="main"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="main/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 60
+
+[node name="Seperator" type="Control" parent="main/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="main/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="main/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+alignment = 2
+
+[node name="Seprator11" type="Control" parent="main/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="single player" type="Button" parent="main/MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(140, 32)
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_77rso")
+theme_override_font_sizes/font_size = 24
+text = "    SINGLE PLAYER    "
+
+[node name="host" type="Button" parent="main/MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_77rso")
+theme_override_font_sizes/font_size = 24
+text = "HOST"
+
+[node name="join" type="Button" parent="main/MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_77rso")
+theme_override_font_sizes/font_size = 24
+text = "JOIN"
+
+[node name="join via ip" type="LineEdit" parent="main/MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+placeholder_text = "   Join With Address"
+
+[node name="options" type="Button" parent="main/MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_77rso")
+theme_override_font_sizes/font_size = 24
+text = "Options
+"
+
+[node name="exit" type="Button" parent="main/MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_77rso")
+theme_override_font_sizes/font_size = 24
+text = "Exit"
+
+[node name="Seprator13" type="Control" parent="main/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Seprator14" type="Control" parent="main/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Seprator15" type="Control" parent="main/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Seprator16" type="Control" parent="main/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Seprator17" type="Control" parent="main/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Seprator18" type="Control" parent="main/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Seprator19" type="Control" parent="main/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="options_Menu" parent="main" instance=ExtResource("4_m1g76")]
+
+[node name="MusicStreamPlayer" type="AudioStreamPlayer" parent="main"]
+stream = ExtResource("5_5j3wt")
+volume_db = -14.211
+autoplay = true
+bus = &"Music"
+
+[node name="HUD" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="HealthBar" type="ProgressBar" parent="HUD"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 11.0
+offset_right = -652.0
+offset_bottom = -595.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.4, 0.08)
+theme_override_styles/background = SubResource("StyleBoxFlat_x5cup")
+theme_override_styles/fill = SubResource("StyleBoxFlat_vyl1y")
+max_value = 3.0
+value = 3.0
+show_percentage = false
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://player.tscn")
+spawn_path = NodePath("..")
+
+[connection signal="pressed" from="main/MarginContainer/HBoxContainer/VBoxContainer/host" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="main/MarginContainer/HBoxContainer/VBoxContainer/join" to="." method="_on_button_3_pressed"]
+[connection signal="spawned" from="MultiplayerSpawner" to="." method="_on_multiplayer_spawner_spawned"]
